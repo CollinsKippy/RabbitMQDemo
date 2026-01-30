@@ -1,4 +1,5 @@
-﻿using Polly;
+﻿using System.Net.Sockets;
+using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
@@ -58,16 +59,19 @@ namespace RabbitMQDemo.Background
                 Password = "guest"
             };
 
-            IConnection? connection;
+            var retryPolicy = Policy
+                .Handle<BrokerUnreachableException>()
+                .Or<SocketException>()
+                .Or<TimeoutException>()
+                .WaitAndRetryAsync(
+                    retryCount: 5,
+                    sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
+                    onRetry: (exception, timeSpan, retry, context) =>
+                    {
+                        Console.WriteLine($"Retry attempt {retry} after {timeSpan.TotalSeconds}s: {exception.Message}");
+                    });
 
-            var retryPolicy = Polly.Policy.Handle<BrokerUnreachableException>().WaitAndRetry(
-                retryCount: 5,
-                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
-                onRetry: (exception, timeSpan, retry, context) =>
-                {
-                    Console.WriteLine($"Retry attempt {retry} {exception.Message}");
-                });
-            connection = retryPolicy.Execute(() => factory.CreateConnectionAsync().Result);
+            IConnection connection = await retryPolicy.ExecuteAsync(() => factory.CreateConnectionAsync());
             return await connection.CreateChannelAsync();
         }
     }
