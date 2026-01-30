@@ -4,10 +4,24 @@
     build:
       context: .
       dockerfile: RabbitMQDemo.Background/Dockerfile
+    depends_on:
+      - rabbitmq
 
   rabbitmqdemo.producer:
     image: rabbitmqdemo.producer
     build:
       context: .
       dockerfile: RabbitMQDemo.Producer/Dockerfile
-
+    depends_on:
+      - rabbitmq
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq3
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    restart: always
