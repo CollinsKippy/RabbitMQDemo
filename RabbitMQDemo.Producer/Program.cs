@@ -55,7 +55,7 @@ namespace RabbitMQDemo.Producer
         {
             var factory = new ConnectionFactory
             {
-                HostName = "rabbitmq", 
+                HostName = "rabbitmq3", 
                 UserName = "guest", 
                 Password = "guest"
             };
