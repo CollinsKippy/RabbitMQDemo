@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RabbitMQDemo.Background")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4cc5e25240b2b8b13f7bd68bedb225cc9dcc0d4b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5551d3e2c7037c0ad43d5e1829861b97b0fa1ff6")]
 [assembly: System.Reflection.AssemblyProductAttribute("RabbitMQDemo.Background")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RabbitMQDemo.Background")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

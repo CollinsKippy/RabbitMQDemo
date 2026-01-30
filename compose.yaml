@@ -1,0 +1,13 @@
+﻿services:
+  rabbitmqdemo.background:
+    image: rabbitmqdemo.background
+    build:
+      context: .
+      dockerfile: RabbitMQDemo.Background/Dockerfile
+
+  rabbitmqdemo.producer:
+    image: rabbitmqdemo.producer
+    build:
+      context: .
+      dockerfile: RabbitMQDemo.Producer/Dockerfile
+
