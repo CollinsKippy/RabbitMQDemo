@@ -38,7 +38,7 @@ namespace RabbitMQDemo.Background
 
                 await channel.BasicConsumeAsync(
                     queue: "first_names",
-                    autoAck: true,
+                    autoAck: false,
                     consumer: consumer
                 );
                 
