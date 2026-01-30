@@ -6,6 +6,9 @@
       dockerfile: RabbitMQDemo.Background/Dockerfile
     environment:
       - RabbitMq__Host=rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__User=guest
+      - RabbitMq__Password=guest
 
     depends_on:
       - rabbitmq
@@ -17,6 +20,9 @@
       dockerfile: RabbitMQDemo.Producer/Dockerfile
     environment:
       - RabbitMq__Host=rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__User=guest
+      - RabbitMq__Password=guest
     depends_on:
       - rabbitmq
   
