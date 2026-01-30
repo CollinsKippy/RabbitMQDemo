@@ -31,7 +31,7 @@ namespace RabbitMQDemo.Background
                     string stringMessage = System.Text.Encoding.UTF8.GetString(body);
                     var jsonMessage = System.Text.Json.JsonSerializer.Deserialize<Message>(stringMessage);
 
-                    Console.WriteLine($"Received: {jsonMessage}");
+                    Console.WriteLine($"Received: {jsonMessage.FirstName} at {jsonMessage.Timestamp:g}");
 
                     await channel.BasicAckAsync(eventArgs.DeliveryTag, false);
                 };
