@@ -5,7 +5,8 @@
       context: .
       dockerfile: RabbitMQDemo.Background/Dockerfile
     environment:
-      RabbitMQ__HostName=rabbitmq3
+      - RabbitMq__Host=rabbitmq
+
     depends_on:
       - rabbitmq
 
@@ -15,7 +16,7 @@
       context: .
       dockerfile: RabbitMQDemo.Producer/Dockerfile
     environment:
-      RabbitMQ__HostName=rabbitmq3
+      - RabbitMq__Host=rabbitmq
     depends_on:
       - rabbitmq
   
