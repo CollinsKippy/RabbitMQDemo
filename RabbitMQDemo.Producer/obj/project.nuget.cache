@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "/4EbPFzaWIU=",
+  "dgSpecHash": "b8NyhvcSz5Q=",
   "success": true,
   "projectFilePath": "C:\\Users\\colli\\RiderProjects\\RabbitMQDemo\\RabbitMQDemo.Producer\\RabbitMQDemo.Producer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\colli\\.nuget\\packages\\polly\\8.6.5\\polly.8.6.5.nupkg.sha512",
+    "C:\\Users\\colli\\.nuget\\packages\\polly.core\\8.6.5\\polly.core.8.6.5.nupkg.sha512",
     "C:\\Users\\colli\\.nuget\\packages\\rabbitmq.client\\7.2.0\\rabbitmq.client.7.2.0.nupkg.sha512",
     "C:\\Users\\colli\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512"
   ],

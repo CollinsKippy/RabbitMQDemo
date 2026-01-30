@@ -1,5 +1,7 @@
 ﻿using System.Text;
+using Polly;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 using RabbitMQDemo.Models;
 
 namespace RabbitMQDemo.Producer
@@ -46,7 +48,7 @@ namespace RabbitMQDemo.Producer
                     basicProperties: new BasicProperties { Persistent = true },
                     body: body,
                     mandatory: true);
-                
+
                 await Task.Delay(5000);
             }
         }
@@ -55,14 +57,23 @@ namespace RabbitMQDemo.Producer
         {
             var factory = new ConnectionFactory
             {
-                HostName = "rabbitmq", 
-                UserName = "guest", 
+                HostName = "rabbitmq",
+                Port = 5672,
+                UserName = "guest",
                 Password = "guest"
             };
-            IConnection connection = await factory.CreateConnectionAsync();
-            IChannel channel = await connection.CreateChannelAsync();
 
-            return channel;
+            IConnection? connection;
+
+            var retryPolicy = Polly.Policy.Handle<BrokerUnreachableException>().WaitAndRetry(
+                retryCount: 5,
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
+                onRetry: (exception, timeSpan, retry, context) =>
+                {
+                    Console.WriteLine($"Retry attempt {retry} {exception.Message}");
+                });
+            connection = retryPolicy.Execute(() => factory.CreateConnectionAsync().Result);
+            return await connection.CreateChannelAsync();
         }
 
         /**
