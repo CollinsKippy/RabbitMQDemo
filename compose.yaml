@@ -5,7 +5,7 @@
       context: .
       dockerfile: RabbitMQDemo.Background/Dockerfile
     environment:
-      - RabbitMq__Host=rabbitmq3
+      - RabbitMq__Host=rabbitmq
 
     depends_on:
       - rabbitmq
@@ -16,14 +16,14 @@
       context: .
       dockerfile: RabbitMQDemo.Producer/Dockerfile
     environment:
-      - RabbitMq__Host=rabbitmq3
+      - RabbitMq__Host=rabbitmq
     depends_on:
       - rabbitmq
   
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq3
-    hostname: rabbitmq3
+    container_name: rabbitmq
+    hostname: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
