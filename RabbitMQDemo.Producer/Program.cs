@@ -53,7 +53,12 @@ namespace RabbitMQDemo.Producer
 
         private static async Task<IChannel> SetupRabbitMQ()
         {
-            ConnectionFactory factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory
+            {
+                HostName = "rabbitmq", 
+                UserName = "guest", 
+                Password = "guest"
+            };
             IConnection connection = await factory.CreateConnectionAsync();
             IChannel channel = await connection.CreateChannelAsync();
 

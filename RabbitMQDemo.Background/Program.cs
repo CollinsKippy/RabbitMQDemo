@@ -41,14 +41,19 @@ namespace RabbitMQDemo.Background
                     autoAck: false,
                     consumer: consumer
                 );
-                
+
                 await Task.Delay(7500);
             }
         }
 
         static async Task<IChannel> SetupRabbitMQ()
         {
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory
+            {
+                HostName = "rabbitmq", 
+                UserName = "guest", 
+                Password = "guest"
+            };
             var connection = await factory.CreateConnectionAsync();
             return await connection.CreateChannelAsync();
         }
